@@ -1,0 +1,6 @@
+version=0.1
+[default.deploy.parameters]
+stack_name = "cfn-custom-resource-aws-easy-dash"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"

@@ -1,0 +1,36 @@
+{ "Lambda" : [
+  {
+    "height": 6,
+    "width": 6,
+    "type": "metric",
+    "properties": {
+      "metrics": [
+        [
+          "AWS/Lambda",
+          "Errors",
+          "FunctionName",
+          "ResourceNamePlaceholder",
+          {
+            "color": "#d62728"
+          }
+        ],
+        [
+          ".",
+          "Invocations",
+          ".",
+          ".",
+          {
+            "color": "#1f77b4"
+          }
+        ]
+      ],
+      "view": "timeSeries",
+      "stacked": true,
+      "region": "RegionNamePlaceholder",
+      "stat": "Sum",
+      "period": 300,
+      "title": "ResourceNamePlaceholder"
+    }
+  }
+]
+}

@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: sam-custom-resource-dashboard-factory
+
+Resources:
+  DashboardFactoryPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource:
+              - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*"
+          - Effect: Allow
+            Action:
+              - cloudwatch:ListDashboards
+              - cloudwatch:GetDashboard
+              - cloudwatch:PutDashboard
+              - cloudwatch:DeleteDashboards
+            Resource: "*"
+
+  DashboardFactoryRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Ref DashboardFactoryPolicy
+      Tags:
+        - Key: cfn-stack
+          Value: !Ref AWS::StackName
+        - Key: custom-resource
+          Value: "AWS-easy-dash"
+
+  DashboardFactory:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: code/
+      Role: !GetAtt DashboardFactoryRole.Arn
+      Timeout: 15
+      Runtime: python3.9
+      Architectures:
+        - arm64
+      Handler: app.lambdaHandler
+      MemorySize: 1024
+      Tags:
+        custom-resource: "AWS-easy-dash"
+        cfn-stack: !Ref AWS::StackName
+
+  DashboardFactoryLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 7
+      LogGroupName: !Join [ "", [ "/aws/lambda/", !Ref DashboardFactory ] ]
+      Tags:
+        - Key: custom-resource
+          Value: "AWS-easy-dash"
+        - Key: cfn-stack
+          Value: !Ref AWS::StackName
+
+Outputs:
+  DashboardFactory:
+    Description: The arn of the custom resource used by AWS-easy-dash
+    Value: !GetAtt DashboardFactory.Arn
+    Export:
+      Name: !Sub "cr-aws-easy-dash-${AWS::Region}"

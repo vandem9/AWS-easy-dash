@@ -1,0 +1,87 @@
+{ "ApiGateway" : [
+      {
+        "height": 6,
+        "width": 24,
+        "type": "metric",
+        "properties": {
+          "metrics": [
+            [
+              "AWS/ApiGateway",
+              "Count",
+              "ApiName",
+              "ResourceNamePlaceholder"
+            ]
+          ],
+          "view": "timeSeries",
+          "stacked": true,
+          "region": "RegionNamePlaceholder",
+          "stat": "Sum",
+          "period": 300,
+          "title": "Api Requests"
+        }
+      },
+      {
+      "height": 6,
+      "width": 12,
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          [
+            "AWS/ApiGateway",
+            "4XXError",
+            "ApiName",
+            "ResourceNamePlaceholder",
+            {
+              "color": "#ff7f0e"
+            }
+          ],
+          [
+            ".",
+            "5XXError",
+            ".",
+            ".",
+            {
+              "color": "#d62728"
+            }
+          ]
+        ],
+        "view": "timeSeries",
+        "stacked": true,
+        "region": "RegionNamePlaceholder",
+        "stat": "Sum",
+        "period": 300,
+        "title": "Api Errors"
+      }
+    },
+    {
+      "height": 6,
+      "width": 12,
+      "type": "metric",
+      "properties": {
+        "metrics": [
+          [
+            "AWS/ApiGateway",
+            "Latency",
+            "ApiName",
+            "ResourceNamePlaceholder"
+          ],
+          [
+            ".",
+            "IntegrationLatency",
+            ".",
+            ".",
+            {
+              "color": "#d62728"
+            }
+          ]
+        ],
+        "view": "timeSeries",
+        "stacked": true,
+        "region": "RegionNamePlaceholder",
+        "stat": "Average",
+        "period": 300,
+        "title": "Api Latency"
+      }
+    }
+]
+}
