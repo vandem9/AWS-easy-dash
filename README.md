@@ -12,6 +12,7 @@ Currently supported resource types are:
 
 - ApiGateway
 - Lambda
+- S3
 
 ## Requirements
 - aws cli

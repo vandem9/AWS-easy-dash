@@ -1,0 +1,52 @@
+{
+  "S3": [
+    {
+      "type": "metric",
+      "width": 6,
+      "height": 6,
+      "properties": {
+        "view": "timeSeries",
+        "title": "NumberOfObjects ResourceNamePlaceholder",
+        "stacked": true,
+        "metrics": [
+          [
+            "AWS/S3",
+            "NumberOfObjects",
+            "StorageType",
+            "AllStorageTypes",
+            "BucketName",
+            "ResourceNamePlaceholder",
+            {
+              "period": 604800
+            }
+          ]
+        ],
+        "region": "RegionNamePlaceholder"
+      }
+    },
+    {
+      "type": "metric",
+      "width": 6,
+      "height": 6,
+      "properties": {
+        "view": "timeSeries",
+        "title": "BucketSizeBytes ResourceNamePlaceholder",
+        "stacked": true,
+        "metrics": [
+          [
+            "AWS/S3",
+            "BucketSizeBytes",
+            "StorageType",
+            "StandardStorage",
+            "BucketName",
+            "ResourceNamePlaceholder",
+            {
+              "period": 604800
+            }
+          ]
+        ],
+        "region": "RegionNamePlaceholder"
+      }
+    }
+  ]
+}
